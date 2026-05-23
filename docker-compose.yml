@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+
+  # ── Next.js UI ───────────────────────────────────────────
+  ui:
+    build:
+      context: ./ui
+      dockerfile: Dockerfile
+      args:
+        # Change this if your backend URL ever changes.
+        # Must rebuild the image after changing: docker compose build ui
+        NEXT_PUBLIC_API_URL: https://researchai.umarsyukri.com
+    container_name: researchai-ui
+    restart: unless-stopped
+    expose:
+      - "3000"
+
+  # ── Nginx reverse proxy ──────────────────────────────────
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: researchai-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      # SSL certs obtained via: sudo certbot certonly --standalone -d <domain>
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+    depends_on:
+      - ui
