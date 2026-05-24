@@ -4,7 +4,6 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import {
   FileText,
-  Upload,
   CheckCircle2,
   XCircle,
   Loader2,
