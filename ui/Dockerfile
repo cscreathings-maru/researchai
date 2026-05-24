@@ -8,6 +8,9 @@ RUN npm ci
 
 COPY . .
 
+# Ensure public/ exists — Next.js standalone requires it even if empty
+RUN mkdir -p /app/public
+
 # NEXT_PUBLIC_* vars are baked into the bundle at build time.
 # Pass the backend URL via: docker compose build --build-arg ...
 ARG NEXT_PUBLIC_API_URL=https://researchai.umarsyukri.com

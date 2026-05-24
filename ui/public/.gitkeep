@@ -1,0 +1,3 @@
+# This file exists solely to make git track the public/ directory.
+# Next.js requires public/ to exist at build time.
+# Place any static assets (images, fonts, robots.txt, etc.) here.
